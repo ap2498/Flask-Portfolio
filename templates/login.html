@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{%block content%}
+
+<label for="user_name">User Name</label>
+<input type="text" id="user_name">
+<label for="password">Pass</label>
+<input type="password" id="password">
+<button onclick="login()">Login</button>
+{% csrf_token %}
+<script>
+    function getCSRFToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+    function login() {
+        let user_name = document.getElementById('user_name').value;
+        let password = document.getElementById('password').value;
+
+        let data = new FormData();
+        data.append('username', user_name);
+        data.append('password', password);
+        data.append('csrfmiddlewaretoken', getCSRFToken());
+
+        $.ajax({
+            url: "/login_custom/",
+            type: "POST", // Fixed from GET to POST
+            data: data,
+            contentType: false,
+            processData: false,
+            xhrFields: {
+                withCredentials: true  // 👈 this makes cookies (sessionid, csrftoken) work
+            },
+            success: function(response) {
+                console.log("U:", response);
+
+                // Check if session data is present
+                if (response.status === 200) {
+                    // console.log("Session Data:", response.session); // Should work now!
+                    alert("Login Successful!");
+                    location.href="/load_create_projects/"
+                } else {
+                    console.error("Login Failed:", response.message);
+                    alert(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error:", error);
+            }
+        });
+    }
+
+</script>
+{% endblock %}

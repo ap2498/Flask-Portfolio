@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div id="resumeContainer" style="width:100%; height:600px; border:1px solid #ccc;"></div>
+
+<script>
+function loadResume() {
+    fetch("/resume/view/", { method: "GET" })
+    .then(response => response.blob())   // get binary data
+    .then(blob => {
+        let url = URL.createObjectURL(blob); // create a temporary object URL
+        document.getElementById("resumeContainer").innerHTML =
+            `<embed src="${url}" type="application/pdf" width="100%" height="100%">`;
+    })
+    .catch(error => console.error("Error loading resume:", error));
+}
+
+// Call the function automatically when page loads
+window.addEventListener("DOMContentLoaded", loadResume);
+</script>
+
+    {% endblock %}

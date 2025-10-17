@@ -1,0 +1,88 @@
+
+{% extends "base.html" %}
+
+{%block content%}
+<style>
+    body{
+        overflow: scroll;
+    }
+</style>
+<div class="container">
+    <h3 style="font-weight: 900;color:#D91656;text-shadow:5px 5px 5px rgb(237, 164, 6)" id="project_title"></h3>
+    <div style="background-color:#F26B0F;box-shadow:10px 10px 10px rgb(237, 164, 6); padding:10px">
+        <h4>Description</h4>
+    
+        <p id="project_description" style="white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word;"></p> 
+        <!-- ✅ Fixes line breaks & ensures text wraps properly -->
+    </div>
+    <br><br>
+    <div style="background-color:#E73879;box-shadow:10px 10px 10px rgb(237, 164, 6);padding:10px">
+        <h4>Technologies Used</h4>
+        <p id="project_technology"></p>
+    </div> 
+    <br><br>
+    <div style="background-color:#F26B0F;box-shadow:10px 10px 10px rgb(237, 164, 6);padding:10px">
+        <h4>Url</h4>
+        <p id="project_url"></p>
+    </div> <br><br>
+    <div style="background-color:#E73879;box-shadow:10px 10px 10px rgb(237, 164, 6);padding:10px">
+        <h4>Developed For</h4>
+        <p id="client"></p>
+    </div> <br><br>
+    <div class="row" id="images" style="box-shadow:10px 10px 10px rgb(237, 164, 6);background-color:FF4545;display: flex; flex-wrap: wrap; gap: 10px;padding:10px"></div> <!-- ✅ Images on one line -->
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const project_id = urlParams.get('id');
+    single_project(project_id);
+
+    function single_project(id) {
+        $.ajax({
+            url: "/view_one_project/" + id ,  // matches Django URL
+            type: "GET",
+            success: function (resp) {
+                console.log('resp', resp);
+
+                if (resp.status === 200 && resp.data.length > 0) {
+                    let project = resp.data[0];  // ✅ API returns an array
+                    let html = ``;
+
+                    // ✅ Update text fields
+                    $('#project_title').text(project.title);
+                    $('#project_description').text(project.description);
+                    $('#project_url').text(project.url);
+                    $('#client').text(project.client);
+                    $('#project_technology').text(project.technology);
+                    
+
+                    // ✅ Handle images
+                    if (project.images && project.images.length > 0) {
+                        $.each(project.images, function (index, image) {
+                            html += `
+                                <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                                    <a href="/static/uploads/${image}" target="_blank">
+                                        <img src="/static/uploads/${image}" class="card-img-top img-fluid" alt="project image" style="max-width: 100px; height: auto;">
+                                    </a>
+                                </div>`;
+                        });
+
+                        $('#images').html(html).show();
+                    } else {
+                        $('#images').hide(); // ✅ Hide if no images
+                    }
+                } else {
+                    $('#project_title').html(`No Data Found`);
+                    $('#images').hide();
+                }
+            },
+            error: function (err) {
+                console.log(err);
+                $('#project_title').html(`Error loading data.`);
+                $('#images').hide();
+            }
+        });
+    }
+</script>
+
+{% endblock %}

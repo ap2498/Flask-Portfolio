@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{%block content%}
+<div class="container">
+    <h3 style="padding:10px;font-weight:900;color:#7E1891;text-shadow:5px 5px 10px rgb(181, 19, 173)">All Projects</h3>
+    <div class="row" id="projects" style="margin-top:20px;"></div>
+</div>
+{% endblock %}
+
+
+
+
+<script>
+    load_all_projects_by_category()
+    function load_all_projects_by_category(){
+    // Getting the category parameter from the URL
+        const urlParams = new URL(window.location.href).searchParams;
+        const category = urlParams.get('category');
+        
+        $.ajax({
+            url: "/fetch_by_category/"+category,
+            type: "GET",
+            success: function (resp) {
+                console.log('pro:', resp);
+
+                // Check if the response is successful
+                if (resp.status) {
+                   
+                    if (resp.data.data.length>0) {
+                        
+                        let html = ``;
+                        let colors = ['#16C47F', '#A6CDC6', '#EDF4C2', '#C890A7', 'DF9755', 'C890A7'];
+
+                        // Iterate through the projects
+                        $.each(resp.data.data, function (index, project) {
+                            console.log('Project:', project);
+                            desc=truncateText(project.description,15)
+                            tit=truncateText(project.title,25)
+                            let card_color = colors[index % colors.length];
+
+                            // Generate the image path
+                            let img_path = `${project.cover}`;
+
+                            // Create the card HTML for each project
+                            html += `
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-3">
+                                    <div class="card" style="width: 100%; background-color:${card_color}; box-shadow: 10px 10px 10px #FFC145;">
+                                        <img src="${img_path}" class="card-img-top" alt="${project.title}">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${tit}</h5>
+                                            <p class="card-text">${desc}</p>
+                                            <a href="single_project?id=${project.id}" class="btn btn-primary">See More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+
+                        // Append the generated cards to the projects container
+                        $('#projects').html(html);
+                    } else {
+                        $('#projects').html(`<p>No Data Found</p>`);
+                    }
+                } else {
+                    $('#projects').html(`<p>${resp.message}</p>`);
+                }
+            },
+            error: function (err) {
+                console.log('Error:', err);
+                $('#projects').html(`<p>Error loading data.</p>`);
+            }
+        });
+    }
+
+    function truncateText(text, maxLength) {
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + '...';
+        } else {
+            return text;
+        }
+    }
+</script>

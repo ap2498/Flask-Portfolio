@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="margin-top:20px" class="container" id="image"></div>
+ <br><br>
+<a class="btn btn-primary" id="back">back to project</a>
+
+<script>
+    let pid=''
+    get_image()
+    
+        function get_image(){
+    // Getting the category parameter from the URL
+            const urlParams = new URL(window.location.href).searchParams;
+            const id = urlParams.get('id');
+            
+            $.ajax({
+                url: "/single-image/"+String(id),
+                type: "GET",
+                success: function (resp) {
+                    console.log('img:', resp);
+
+                    // Check if the response is successful
+                    if (resp.status) {
+                    
+                        if (resp.data) {
+                            pid=resp.data.project_id
+                            img=resp.data.image
+                            html=`<img src="${img}" alt="" style="width:100%;">`
+                            $("#image").html(html)
+                            console.log('success')
+                            let projectUrl = `/single_project?id=${pid}/`;
+
+                    // Set the href attribute of the anchor tag
+                            $("#back").attr("href", projectUrl);
+
+                            // Iterate through the projects
+                            
+                            // Append the generated cards to the projects container
+                            $('#image').html(html);
+                        } else {
+                            $('#image').html(`<p>No Data Found</p>`);
+                        }
+                    } else {
+                        $('#image').html(`<p>${resp.message}</p>`);
+                    }
+                },
+                error: function (err) {
+                    console.log('Error:', err);
+                    $('#projects').html(`<p>Error loading data.</p>`);
+                }
+            });
+        }
+        // function go_back(){
+        //     $.ajax({
+        //     url: "<?=base_url()?>find-project", // Replace with your actual API endpoint
+        //     type: "GET", // or "POST" depending on your request
+            
+        //     success: function(resp) {
+        //         console.log('id',resp)
+        //         if (resp.status) {
+        //             // Construct the URL dynamically
+        //             let projectUrl = `${base_url()}/single-project?id=${pid}`;
+
+        //             // Set the href attribute of the anchor tag
+        //             $("#back").attr("href", projectUrl);
+        //         }
+        //     },
+        //     error: function(xhr, status, error) {
+        //         console.error("Error:", error);
+        //     }
+        // });
+
+        // }
+</script>
+{% endblock %}

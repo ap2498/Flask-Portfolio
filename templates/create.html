@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <label for="title">Title</label>
+    <input class="form-control" type="text" id="title">
+    
+    <label for="description">Description</label>
+    <textarea class="form-control" name="description" id="description"></textarea>
+    
+    <label for="url">Url</label>
+    <input class="form-control" type="text" id="url">
+    
+    <label for="technology">Technology</label>
+    <input class="form-control" type="text" id="technology">
+
+    <label for="client">Client</label>
+    <input class="form-control" type="text" id="client"
+
+    <label for="category">Category Id</label>
+    <input class="form-control" type="text" id="category"
+
+    <label for="cover">Cover Image</label>
+    <input class="form-control" type="file" id="cover">
+
+    <label for="images">Project Images</label>
+    <input class="form-control" type="file" id="images" multiple>
+
+    <button class="btn btn-primary" onclick="create_projects(event)">Create</button>
+</div>
+
+<script>
+function create_projects(event) {
+    event.preventDefault();
+
+    let formData = new FormData();
+
+    // Append text fields
+    formData.append('title', $('#title').val());
+    formData.append('description', $('#description').val());
+    formData.append('url', $('#url').val());
+    formData.append('technology', $('#technology').val());
+    formData.append('client', $('#client').val());
+    formData.append('category', $('#category').val());
+
+    // Append cover image
+    let coverFile = $('#cover')[0].files[0];
+    if (coverFile) {
+        formData.append('cover', coverFile);
+    }
+
+    // Append multiple images
+    let images = $('#images')[0].files;
+    for (let i = 0; i < images.length; i++) {
+        formData.append('images', images[i]);
+    }
+
+    // Debugging
+    for (let pair of formData.entries()) {
+        console.log(pair[0] + ':', pair[1]);
+    }
+
+    // AJAX request
+    $.ajax({
+        url: "{{ url_for('create_project') }}",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            console.log('Response:', response);
+            if (response.status === 200) {
+                alert(response.message);
+                location.reload();
+            } else {
+                alert(`Error: ${response.message}`);
+            }
+        },
+        error: function(err) {
+            console.error("Error:", err);
+        },
+    });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+
+<style>
+    body{
+        font-family: 'Poppins';
+    }
+   /* #007bff  */
+._header {
+    position: relative;
+    display: inline-block;
+    padding: 10px 30px; 
+    font-size: 20px;
+    font-weight: bold;
+    background: black; 
+    color: white;
+    border-radius: 50px; 
+    text-align: center;
+}
+
+
+
+/* ._header::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 50px; 
+    height: 3px; 
+    background: black; 
+    transform: translateY(-50%);
+} */
+._header::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left:110%;
+    width: 150px; 
+    height: 3px; 
+    background: black; 
+    transform: translateY(-50%);
+}
+._header::before {
+    left: -60px; 
+}
+
+._header::after {
+    right: -60px;
+}
+
+</style>
+
+{%block content%}
+
+    <div class="container">
+        <div class="name_div" style="margin-top: 40px;">
+            <h1 class="name" style="font-size: 40px;">Aditya Paul</h1>
+        </div>
+        <div class="meta_div" style="line-height: 10px;">
+            <small class="meta">Ananda Palit Road | Kolkata - 700014 | West Bengal | India | Date of Birth : 24/04/1998 | <span style="color:blue"> +91-8981108547</span> | <span style="color:blue">adityapaul2498@gmail.com</span></small>
+            
+        </div> <br> <br>
+        <div class="desc_div" style="margin-left: 10px">
+            <h1 class="_header" style="font-size: 20px;"> Profile</h1>
+            <ul>
+                <li>Highly motivated and detail-oriented Computer Science graduate with expertise in Web Design, Web Development, Software Development, Writing and Testing REST API, operating GIT, Object Oriented Programming and Database Management Systems. </li>
+                <li>Proven ability to quickly learn and apply new technologies to tackle different challenges that may arise everyday while fulfilling the job role.Eager to contribute skills and passion for coding in a dynamic team environment.</li>
+            </ul>
+        </div>
+        <div class="experience_div" style="margin-left: 10px">
+            <h1 class="_header" style="font-size: 20px;">Employment History</h1>
+            
+            
+            <div class="exp_2" style="margin-left:30px;">
+                <h5 style="margin-bottom: 2px;">
+                    <b>Iotivity Communications Private Limited</b>, Kolkata — <i>PHP Developer</i>
+                </h5>
+                <small style="display: block; margin-left: 0px; margin-bottom: 5px;">August 2024 - November 2024</small>
+                <p style="margin-left:30px;">
+                    Daily tasks include going through website design plans, writing code in 
+                    Hypertext Markup Language (HTML5), Cascading Style Sheets (CSS), 
+                    JavaScript, and Hypertext Preprocessor (PHP), sometimes implementing 
+                    Ajax features in a Full-Stack setting using Frameworks CodeIgniter 3 and 
+                    Bootstrap 5.
+                </p>
+            </div>
+            <div class="exp_3" style="margin-left:30px;">
+                <h5 style="margin-bottom: 2px;">
+                    <b>Softech ERP Solutions Private Limited</b>, Kolkata — <i>PHP Developer Intern</i>
+                </h5>
+                <small style="display: block; margin-left: 0px; margin-bottom: 5px;">June 2024 - August 2024 </small>
+                <p style="margin-left:30px;">
+                    Daily tasks included going through and organizing data, write Structured 
+                    Query Language (SQL) Queries, write code in Hypertext Markup Language 
+                    (HTML5), Cascading Style Sheets (CSS), JavaScript and Hypertext 
+                    Preprocessor (Php) and Bootstrap 5. 
+                </p>
+            </div>
+        </div>
+
+        <div class="education_div" style="margin-left: 10px">
+            <h1 class="_header" style="font-size: 20px;">Education</h1>
+            <div class="edu_1" style="margin-left:30px;">
+                <h5 style="margin-bottom: 2px;">
+                    <b>Institute of Engineering and Management</b>, Kolkata — <i>Bachelor of Technology </i>
+                </h5>
+                <small style="display: block; margin-left: 0px; margin-bottom: 5px;">June 2016- June 2020</small>
+                <ul style="margin-left:30px;">
+                    <li>Learned subjects like  Python, Database Management Systems 
+                        and Structured Query Language as part of the curriculum </li>
+                    <li>For the final year project built a website for music streaming with 
+                        features like pagination, comment forms, registration and login 
+                        with Python, Django, HTML, CSS and Bootstrap </li>
+                </ul>
+            </div>
+            <div class="edu_2" style="margin-left:30px;">
+                <h5 style="margin-bottom: 2px;">
+                    <b>Patha Bhavan High School</b>, Kolkata — <i> High Secondary 
+                        Examination </i>
+                </h5>
+                <small style="display: block; margin-left: 0px; margin-bottom: 5px;">January 2015 - February 2016 </small>
+                <p style="margin-left:30px;">
+                    Learned subjects like Physics, Chemistry, Mathematic and Statistics. Also 
+                    studied English and Bengali. Studied under West Bengal Council of Higher 
+                    Secondary Education  
+                </p>
+            </div>
+            <div class="edu_3" style="margin-left:30px;">
+                <h5 style="margin-bottom: 2px;">
+                    <b>South Point High School</b>, Kolkata — <i>  Secondary Examination </i>
+                </h5>
+                <small style="display: block; margin-left: 0px; margin-bottom: 5px;">January 2013 - January 2014 </small>
+                <p style="margin-left:30px;">
+                    Learnt subjects like Physical Science, Life Science, Mathematics, History, 
+                    Geography. Studied under West Bengal Board of Secondary Education.  
+                </p>
+            </div>
+        </div>
+        <div class="skills_div">
+            <h1 class="_header" style="font-size: 20px;">Skills</h1><br>
+                <div class="row">
+                    <div class="col-md-4">
+                       <b>Hypertext Preprocessor(PHP) </b> <br>
+                       <b>Codeigniter</b><br>
+                       <b>Laravel</b><br>
+                       <b>Postman</b>
+
+                    </div>
+                    <div class="col-md-4">
+
+                        <b>Hypertext Markup Language (HTML) </b><br>
+                        <b>Cascading Style Sheets (CSS)</b><br>
+                        <b>Python</b><br>
+                        <b>JavaScript(Js)</b>
+                    </div>
+                    <div class="col-md-4">
+                        <b>jQuery</b><br>
+                        <b>AJAX</b><br>
+                        <b>Structured Query Language (SQL)</b><br>
+                        <b>REST Api</b><br>
+                        <b></b>
+                    </div>
+                </div>
+        </div><br>
+        <div class="portfolio_div">
+            <h1 class="_header" style="font-size: 20px;">Portfolio</h1><br>
+            <a style="margin-left:60px;" href="https://adityapaul2498.in/my_portfolio/public/">https://adityapaul2498.in/my_portfolio/public/</a>
+        </div><br>
+        <div class="certificate_div">
+            <h1 class="_header" style="font-size: 20px;">Certificate</h1>
+            <div style="margin-left: 60px; display: flex; align-items: center; gap: 5px;">
+                <p style="margin: 0;"><b>Python Certification from HackerRank:-</b></p>
+                <a href="https://www.hackerrank.com/certificates/0de35b128c47 ">https://www.hackerrank.com/certificates/0de35b128c47 </a>
+            </div><br>
+            <div style="margin-left: 60px; display: flex; align-items: center; gap: 5px;">
+                <p style="margin: 0;"><b>SQL Certification from HackerRank:-</b></p>
+                <a href="https://www.hackerrank.com/certificates/ad36203aaec1  ">https://www.hackerrank.com/certificates/ad36203aaec1  </a>
+            </div><br>
+            <div style="margin-left: 60px; display: flex; align-items: center; gap: 5px;">
+                <p style="margin: 0;"><b>JavaScript Certification from HackerRank:-</b></p>
+                <a href="https://www.hackerrank.com/certificates/ad36203aaec1  ">https://www.hackerrank.com/certificates/732c4aa94b96   </a>
+            </div><br><br>
+        </div>
+        
+        
+    </div>
+    {% endblock %}
